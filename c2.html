@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.js"></script>
+    <script src="./theme/macarons.js"></script>
+    <script src="./theme/infographic.js"></script>
+    <script src="./theme/roma.js"></script>
+    <script src="./theme/shine.js"></script>
+    <script src="./theme/vintage.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+    <select id="theme">
+        <option>white</option>
+        <option>dark</option>
+    </select>
+
+
+    <div id="viz"></div>
+
+
+    <style>
+        #viz {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+
+    <script>
+        const title = 'Sources of customer references';
+        const input = [
+            { 'Direct Visit': 335 },
+            { 'Email Marketing': 335 },
+            { 'TV Ads': 335 },
+            { 'Video Ads': 220 },
+            { 'Search Engines': 1600 }
+        ];
+        let theme = 'vintage';
+
+
+        const getEle = id => document.getElementById(id);
+        const renderer = 'svg';
+
+
+
+        const assembleData = (rows) => {
+            const data = [];
+            for (const row of rows) {
+                const keys = Object.keys(row);
+                for (const key of keys) {
+                    data.push({ name: key, value: row[key] });
+                }
+            }
+            return data;
+        }
+
+
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+
+            itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2
+            },
+
+            aria: {
+                show: true
+            },
+            title: {
+                text: title,
+                x: 'center'
+            },
+            series: [
+                {
+                    name: 'Referrer',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    data: assembleData(input)
+
+                }
+            ]
+        };
+
+      const chart = echarts.init(getEle('viz'), theme, { renderer });
+
+        const draw = (option, theme, renderer) => {       
+            window.onresize = () => chart.resize();
+            chart.setOption(option);
+        }
+
+        draw(option, theme, renderer);
+
+       
+
+
+    </script>
+</body>
+
+</html>

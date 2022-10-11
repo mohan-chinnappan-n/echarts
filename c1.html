@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.js"></script>
+    
+</head>
+<body>
+    
+    <div id="viz"></div>  
+
+
+<style>
+    #viz {
+        width: 800px;
+        height: 600px;
+    }
+</style>
+
+<script>
+
+    const getEle = id => document.getElementById(id);
+    const theme = 'dark';
+    const renderer = 'svg';
+
+    const chart = echarts.init(getEle('viz'), theme, {renderer});
+    window.onresize = () =>  chart.resize();
+    
+    const option = {
+
+        aria: {
+            show: true
+        },
+        title: { text: " chart"},
+
+        tooltip: {},
+
+        legend : { data: ['sales', 'target']},
+
+        xAxis: {
+            data: ['Peach', 'Pear', 'Apple', 'Mango']
+
+        },
+
+        yAxis: {
+
+        },
+
+        series : [
+            {
+                name: 'sales',
+                type: 'bar',
+                data : [10,12,30,50]
+            },
+            {
+                name: 'target',
+                type: 'line',
+                data : [20,32,20,60]
+            },
+
+        ]
+        
+    };
+
+    chart.setOption(option);
+
+
+</script>
+</body>
+</html>
